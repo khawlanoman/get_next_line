@@ -36,7 +36,7 @@ char *get_next_line(int fd)
             return (NULL);
        }
        buffer[read_byte] = '\0';
-       all_buffer = ft_strjoin(all_buffer, buffer); 
+       all_buffer = ft_strjoin(all_buffer, buffer);
        while (all_buffer[i])
        {
             if (all_buffer[i] =='\n')
@@ -46,15 +46,21 @@ char *get_next_line(int fd)
                free(all_buffer);
                all_buffer = stash;
                return (line);
-               
             }
             i++;
        }
-      if (read_byte == 0)
-      {
+       if (read_byte == 0){
+         free(buffer);
+         if (all_buffer && *all_buffer != '\0')
+         {
+            line = all_buffer;
+            all_buffer = NULL;
+            return (line);
+         }
+         free(all_buffer);
+         all_buffer = NULL;
          return (NULL);
-      }
+       }
     }
-    free (buffer);
-    return (line);
+    return (NULL);
 }

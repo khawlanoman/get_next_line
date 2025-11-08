@@ -10,10 +10,10 @@ int main()
     char *buff3 = get_next_line(fd);
     char *buff4 = get_next_line(fd);
     printf("%s\n",buff);
-    printf("%s\n",buff1);
-    printf("%s\n",buff2);
-    printf("%s\n",buff3);
-    printf("%s\n",buff4);
+    printf("%p\n",buff1);
+    printf("%p\n",buff2);
+    printf("%p\n",buff3);
+    printf("%p\n",buff4);
 
     close(fd);
     
