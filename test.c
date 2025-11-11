@@ -7,13 +7,9 @@ int main()
     char *buff = get_next_line(fd);
     char *buff1 = get_next_line(fd);
     char *buff2 = get_next_line(fd);
-    char *buff3 = get_next_line(fd);
-    char *buff4 = get_next_line(fd);
-    printf("%s\n",buff);
-    printf("%p\n",buff1);
-    printf("%p\n",buff2);
-    printf("%p\n",buff3);
-    printf("%p\n",buff4);
+    printf("%s",buff);
+    printf("%s",buff1);
+    printf("%s",buff2);
 
     close(fd);
     
