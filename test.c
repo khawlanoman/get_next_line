@@ -6,11 +6,10 @@ int main()
     
     char *buff = get_next_line(fd);
     char *buff1 = get_next_line(fd);
-    char *buff2 = get_next_line(fd);
+  
     printf("%s",buff);
     printf("%s",buff1);
-    printf("%s",buff2);
-
+    
     close(fd);
     
       /*int fd;
