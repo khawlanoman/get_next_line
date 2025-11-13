@@ -25,7 +25,7 @@ static char *read_file(int fd, char *buffer, char **stash)
             return (NULL);
       }
       buffer[read_byte] = '\0';
-      stash[fd] = ft_strjoin(stash[fd], buffer);
+      // stash[fd] = ft_strjoin(stash[fd], buffer);
       if (!stash[fd])
          stash[fd] = ft_strdup(buffer);
       else
@@ -36,33 +36,31 @@ static char *read_file(int fd, char *buffer, char **stash)
    return (stash[fd]);
 }
 
-static char *extract_line(char **stash,int fd )
+static char *extract_line(char **stash)
 {
    int   i;
    char *line;
    char *tmp;
 
    i = 0;
-   if (!stash[fd])
-        return NULL;
-   while (stash[fd][i])
+   //printf("%s",*stash);
+   while ((*stash)[i])
    {
-      if (stash[fd][i] == '\n')
+      if ((*stash)[i] == '\n')
       {
-         line = ft_substr(stash[fd], 0, i + 1);
-         tmp =  ft_substr(stash[fd], i + 1, ft_strlen(stash[fd]) - (i + 1));
-         free(stash[fd]);
-         stash[fd] = tmp;
+         line = ft_substr(*stash, 0, i + 1);
+         tmp =  ft_substr(*stash, i + 1, ft_strlen(*stash) - (i + 1));
+         free(*stash);
+         *stash = tmp;
          return (line);
       }
       i++;
    }
-   line = ft_substr(stash[fd], 0 , ft_strlen(stash[fd]));
-   free(stash[fd]);
-   stash[fd] = NULL; 
+   line = ft_substr(*stash, 0, ft_strlen(*stash));
+   free(*stash);
+   *stash = NULL; 
    return (line);
 }
-
 
 char *get_next_line(int fd)
 {
@@ -78,8 +76,13 @@ char *get_next_line(int fd)
       return (NULL);
    stash[fd] = read_file(fd, buffer, stash);
    free (buffer);
-   if (!stash[fd])
+   if (!stash[fd] || *stash[fd] == '\0')
+   {
+      free(stash[fd]);
+      stash[fd] = NULL;
       return (NULL);
-   line = extract_line(&stash[fd], fd);
+   }
+   //printf("%s",stash[fd]);
+   line = extract_line(&stash[fd]);
    return (line);
 }
